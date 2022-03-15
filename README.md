@@ -1,4 +1,4 @@
-# sistema_recomendacao
+# Sistema de recomendações para usuários de filmes utilizando base de dados em forma de dicionário
 
 Programa desenvolvido durante o curso: 
 

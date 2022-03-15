@@ -40,7 +40,7 @@ def get_recomendacoes(usuario):
         if similaridade <= 0:
             continue
 
-        for item in avaliacoes(outro):
+        for item in avaliacoes[outro]:
             if item not in avaliacoes[usuario]:
                 totais.setdefault(item, 0)
                 totais[item] += avaliacoes[outro][item] * similaridade
@@ -53,3 +53,5 @@ def get_recomendacoes(usuario):
     rankings.sort(reverse=True)
 
     return rankings
+
+print(get_recomendacoes('Claudia'))

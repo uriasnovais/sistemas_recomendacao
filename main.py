@@ -1,28 +1,48 @@
-from recomendacao import avaliacoes_usuario as avaliacoes, avaliacoes_usuario
+from recomendacao import avaliacoes_usuario as avaliacoes
 from math import sqrt
 
 
-def distancia_euclidiana(base, usuario_1, usuario_2):
+def euclidiana(usuario_1, usuario_2):
     si = {}
-    for item in base[usuario_1]:
-        if item in base[usuario_2]:
+
+    for item in avaliacoes[usuario_1]:
+        if item in avaliacoes[usuario_2]:
             si[item] = 1
 
     if len(si) == 0:
         return 0
 
-    soma = sum([pow(base[usuario_1][item] - base[usuario_2][item], 2)
-                for item in base[usuario_1] if item in base[usuario_2]])
+    soma = sum([pow(avaliacoes[usuario_1][item] - avaliacoes[usuario_2][item], 2)
+                for item in avaliacoes[usuario_1] if item in avaliacoes[usuario_2]])
 
     return 1 / (1 + sqrt(soma))
 
 
-def similares(base, usuario):
-    similaridade = [(distancia_euclidiana(base, usuario, outro), outro)
-                    for outro in base if outro != usuario]
+def get_similares(usuario):
+    similaridade = [(euclidiana(usuario, outro), outro)
+                    for outro in avaliacoes if outro != usuario]
+
     similaridade.sort(reverse=True)
+
     return similaridade
 
 
-comp_1 = similares(avaliacoes_usuario, 'Marcos')
-print(f'Grau de Similaridade: \n{comp_1}')
+def get_recomendacoes(usuario):
+    totais = {}
+    soma_similaridade = {}
+
+    for outro in avaliacoes:
+        if outro == usuario:
+            continue
+
+        similaridade = euclidiana(usuario, outro)
+
+        if similaridade <= 0:
+            continue
+
+        for item in avaliacoes(outro):
+            if item not in avaliacoes[usuario]:
+                totais.setdefault(item, 0)
+                totais[item] += avaliacoes[outro][item] * similaridade
+                soma_similaridade.setdefault(item, 0)
+                soma_similaridade[item] += similaridade

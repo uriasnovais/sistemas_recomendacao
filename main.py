@@ -46,3 +46,10 @@ def get_recomendacoes(usuario):
                 totais[item] += avaliacoes[outro][item] * similaridade
                 soma_similaridade.setdefault(item, 0)
                 soma_similaridade[item] += similaridade
+
+    rankings = [(total / soma_similaridade[item], item)
+                for item, total in totais.items()]
+
+    rankings.sort(reverse=True)
+
+    return rankings

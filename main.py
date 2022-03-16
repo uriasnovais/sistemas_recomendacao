@@ -12,7 +12,7 @@ def euclidiana(base, usuario_1, usuario_2):
     if len(si) == 0:
         return 0
 
-    soma = sum([pow(base[usuario_1][item] - base[usuario_2][item], 2)
+    soma = sum([pow(int(base[usuario_1][item]) - int(base[usuario_2][item]), 2)
                 for item in base[usuario_1] if item in base[usuario_2]])
 
     return 1 / (1 + sqrt(soma))
@@ -52,7 +52,7 @@ def get_recomendacoes(base, usuario):
 
     rankings.sort(reverse=True)
 
-    return rankings
+    return rankings[0:30]
 
 
 def carregar_movie_lens(path='ml-100k'):
@@ -69,3 +69,8 @@ def carregar_movie_lens(path='ml-100k'):
         base.setdefault(usuario, {})
         base[usuario][filmes[id_filme]] = nota
     return base
+
+dados = carregar_movie_lens()
+
+for itens in get_similares(dados, '1'):
+    print(f'{itens[1]} - {itens[0]:.2f}')

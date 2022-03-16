@@ -12,7 +12,7 @@ def euclidiana(base, usuario_1, usuario_2):
     if len(si) == 0:
         return 0
 
-    soma = sum([pow(base[usuario_1][item] - base[usuario_2][item], 2)
+    soma = sum([pow(int(base[usuario_1][item]) - int(base[usuario_2][item]), 2)
                 for item in base[usuario_1] if item in base[usuario_2]])
 
     return 1 / (1 + sqrt(soma))
@@ -24,7 +24,7 @@ def get_similares(base, usuario):
 
     similaridade.sort(reverse=True)
 
-    return similaridade[0:30]
+    return similaridade[0:50]
 
 
 def get_recomendacoes(base, usuario):
@@ -43,7 +43,7 @@ def get_recomendacoes(base, usuario):
         for item in base[outro]:
             if item not in base[usuario]:
                 totais.setdefault(item, 0)
-                totais[item] += base[outro][item] * similaridade
+                totais[item] += float(base[outro][item]) * float(similaridade)
                 soma_similaridade.setdefault(item, 0)
                 soma_similaridade[item] += similaridade
 
@@ -52,7 +52,7 @@ def get_recomendacoes(base, usuario):
 
     rankings.sort(reverse=True)
 
-    return rankings
+    return rankings[0:50]
 
 
 def carregar_movie_lens(path='ml-100k'):

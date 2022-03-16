@@ -24,7 +24,7 @@ def get_similares(base, usuario):
 
     similaridade.sort(reverse=True)
 
-    return similaridade[0:30]
+    return similaridade[0:50]
 
 
 def get_recomendacoes(base, usuario):
@@ -43,7 +43,7 @@ def get_recomendacoes(base, usuario):
         for item in base[outro]:
             if item not in base[usuario]:
                 totais.setdefault(item, 0)
-                totais[item] += base[outro][item] * similaridade
+                totais[item] += float(base[outro][item]) * float(similaridade)
                 soma_similaridade.setdefault(item, 0)
                 soma_similaridade[item] += similaridade
 
@@ -52,7 +52,7 @@ def get_recomendacoes(base, usuario):
 
     rankings.sort(reverse=True)
 
-    return rankings[0:30]
+    return rankings[0:50]
 
 
 def carregar_movie_lens(path='ml-100k'):
@@ -69,8 +69,3 @@ def carregar_movie_lens(path='ml-100k'):
         base.setdefault(usuario, {})
         base[usuario][filmes[id_filme]] = nota
     return base
-
-dados = carregar_movie_lens()
-
-for itens in get_similares(dados, '1'):
-    print(f'{itens[1]} - {itens[0]:.2f}')

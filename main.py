@@ -1,4 +1,3 @@
-from recomendacao import avaliacoes_filme, avaliacoes_usuario
 from math import sqrt
 
 
@@ -69,3 +68,8 @@ def carregar_movie_lens(path='ml-100k'):
         base.setdefault(usuario, {})
         base[usuario][filmes[id_filme]] = nota
     return base
+
+banco = carregar_movie_lens()
+
+for itens in get_recomendacoes(banco, '150'):
+    print(itens)

@@ -70,6 +70,7 @@ def carregar_movie_lens(path='ml-100k'):
         base[usuario][filmes[id_filme]] = nota
     return base
 
+
 banco_movie_lens = carregar_movie_lens()
 
 for itens in get_recomendacoes(banco_movie_lens, '150'):

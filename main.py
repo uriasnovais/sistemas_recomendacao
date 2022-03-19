@@ -27,7 +27,7 @@ def get_similares(base, usuario):
     return similaridade[0:50]
 
 
-def get_recomendacoes(base, usuario):
+def get_recomendacoes_usuario(base, usuario):
     totais = {}
     soma_similaridade = {}
 
@@ -79,7 +79,23 @@ def calcula_itens_similares(base):
     return result
 
 
+def recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario):
+    notas_usuario = base_usuario[nome_usuario]
+    notas = {}
+    total_similaridade = {}
+    for (item, nota) in notas_usuario.items():
+        for (similaridade, item_2) in dicionario_similaridades[item]:
+            if item_2 in notas_usuario:
+                continue
+            notas.setdefault(item_2, 0)
+            notas[item_2] += similaridade * nota
+            total_similaridade.setdefault(item_2, 0)
+            total_similaridade[item_2] += similaridade
+    rankings = [(score/total_similaridade[item], item)
+                for item, score in notas.items()]
+    rankings.sort(reverse=True)
+    return rankings
+
+
 banco_movie_lens = carregar_movie_lens()
 itens_similares = calcula_itens_similares(avaliacoes_filme)
-
-print(itens_similares)

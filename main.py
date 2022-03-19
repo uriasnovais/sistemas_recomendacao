@@ -1,5 +1,5 @@
 from math import sqrt
-from recomendacao import avaliacoes_usuario, avaliacoes_filme
+from recomendacao import avaliacoesUsuario as avaliacoes_usuario, avaliacoesFilme as avaliacoes_filme
 
 
 def euclidiana(base, usuario_1, usuario_2):
@@ -12,7 +12,7 @@ def euclidiana(base, usuario_1, usuario_2):
     if len(si) == 0:
         return 0
 
-    soma = sum([pow(int(base[usuario_1][item]) - int(base[usuario_2][item]), 2)
+    soma = sum([pow((base[usuario_1][item]) - (base[usuario_2][item]), 2)
                 for item in base[usuario_1] if item in base[usuario_2]])
 
     return 1 / (1 + sqrt(soma))
@@ -71,9 +71,15 @@ def carregar_movie_lens(path='ml-100k'):
     return base
 
 
+def calcula_itens_similares(base):
+    result = {}
+    for item in base:
+        notas = get_similares(base, item)
+        result[item] = notas
+    return result
+
+
 banco_movie_lens = carregar_movie_lens()
+itens_similares = calcula_itens_similares(avaliacoes_filme)
 
-for itens in get_recomendacoes(banco_movie_lens, '150'):
-    print(itens)
-
-print(get_recomendacoes(avaliacoes_usuario, 'Claudia'))
+print(itens_similares)

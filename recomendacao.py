@@ -1,4 +1,4 @@
-avaliacoes_usuario = {'Ana':
+avaliacoesUsuario = {'Ana':
 		{'Freddy x Jason': 2.5, 
 		 'O Ultimato Bourne': 3.5,
 		 'Star Trek': 3.0, 
@@ -48,7 +48,7 @@ avaliacoes_usuario = {'Ana':
 	     'Exterminador do Futuro':4.0}
 }
 
-avaliacoes_filme = {'Freddy x Jason':
+avaliacoesFilme = {'Freddy x Jason':
 		{'Ana': 2.5, 
 		 'Marcos:': 3.0 ,
 		 'Pedro': 2.5, 

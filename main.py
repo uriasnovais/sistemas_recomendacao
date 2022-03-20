@@ -98,4 +98,4 @@ def recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario):
 
 
 banco_movie_lens = carregar_movie_lens()
-itens_similares = calcula_itens_similares(avaliacoes_filme)
+itens_similares = calcula_itens_similares()

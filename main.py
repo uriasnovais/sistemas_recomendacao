@@ -2,7 +2,7 @@ from math import sqrt
 from recomendacao import avaliacoesUsuario as avaliacoes_usuario, avaliacoesFilme as avaliacoes_filme
 
 
-def euclidiana(base, usuario_1, usuario_2):
+def get_euclidiana(base, usuario_1, usuario_2):
     si = {}
 
     for item in base[usuario_1]:
@@ -12,14 +12,13 @@ def euclidiana(base, usuario_1, usuario_2):
     if len(si) == 0:
         return 0
 
-    soma = sum([pow((base[usuario_1][item]) - (base[usuario_2][item]), 2)
+    soma = sum([pow(float((base[usuario_1][item])) - float((base[usuario_2][item])), 2)
                 for item in base[usuario_1] if item in base[usuario_2]])
 
     return 1 / (1 + sqrt(soma))
 
-
 def get_similares(base, usuario):
-    similaridade = [(euclidiana(base, usuario, outro), outro)
+    similaridade = [(get_euclidiana(base, usuario, outro), outro)
                     for outro in base if outro != usuario]
 
     similaridade.sort(reverse=True)
@@ -35,7 +34,7 @@ def get_recomendacoes_usuario(base, usuario):
         if outro == usuario:
             continue
 
-        similaridade = euclidiana(base, usuario, outro)
+        similaridade = get_euclidiana(base, usuario, outro)
 
         if similaridade <= 0:
             continue
@@ -55,7 +54,7 @@ def get_recomendacoes_usuario(base, usuario):
     return rankings[0:50]
 
 
-def carregar_movie_lens(path='ml-100k'):
+def get_carregar_movie_lens(path='ml-100k'):
     filmes = {}
 
     for linha in open(path + '/u.item'):
@@ -71,7 +70,7 @@ def carregar_movie_lens(path='ml-100k'):
     return base
 
 
-def calcula_itens_similares(base):
+def get_calcula_itens_similares(base):
     result = {}
     for item in base:
         notas = get_similares(base, item)
@@ -79,7 +78,7 @@ def calcula_itens_similares(base):
     return result
 
 
-def recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario):
+def get_recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario):
     notas_usuario = base_usuario[nome_usuario]
     notas = {}
     total_similaridade = {}
@@ -97,5 +96,5 @@ def recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario):
     return rankings
 
 
-banco_movie_lens = carregar_movie_lens()
-itens_similares = calcula_itens_similares()
+banco_movie_lens = get_carregar_movie_lens()
+itens_similares = get_calcula_itens_similares()

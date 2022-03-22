@@ -7,5 +7,5 @@ Programa desenvolvido no decorrer do curso:
 Metas:
 
 - [x]  Reconhecer e Tratar dados de origem .py
-- [ ]  Reconhecer e Tratar dados de origem .txt
+- [ ]  Reconhecer e Tratar dados de origem .item/.data
 - [ ]  Reconhecer e Tratar dados de origem sql

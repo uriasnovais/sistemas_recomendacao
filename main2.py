@@ -1,4 +1,3 @@
-from recomendacao import avaliacoesUsuario as avaliacoes_usuario, avaliacoesFilme as avaliacoes_filme
 
 
 def carregar_lista_usuario_filmes_nota(path='ml-100k'):
@@ -68,10 +67,9 @@ def similares_total_itens(base):
     resultado = {}
     for item in base:
         notas = similaridade_total_usuarios(base, item)
-        print(notas)
         #if float(notas[0]) <= 0:
             #continue
-        #resultado[item] = notas
+        resultado[item] = notas
     return resultado
 
 
@@ -108,3 +106,9 @@ base_usuarios_movies = carregar_lista_usuario_filmes_nota()
 base_movie_usuarios = carregar_lista_filmes_usuario_nota()
 
 print(similares_total_itens(base_movie_usuarios))
+#print(similares_total_itens(base_movie_usuarios).keys())
+#print(similares_total_itens(base_movie_usuarios).values())
+#print(similares_total_itens(base_movie_usuarios).items())
+
+#for linha in similares_total_itens(base_movie_usuarios).keys():
+#    print(linha)

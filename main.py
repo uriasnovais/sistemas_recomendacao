@@ -17,6 +17,7 @@ def get_euclidiana(base, usuario_1, usuario_2):
 
     return 1 / (1 + sqrt(soma))
 
+
 def get_similares(base, usuario):
     similaridade = [(get_euclidiana(base, usuario, outro), outro)
                     for outro in base if outro != usuario]
@@ -96,5 +97,5 @@ def get_recomendacoes_itens(base_usuario, dicionario_similaridades, nome_usuario
     return rankings
 
 
-banco_movie_lens = get_carregar_movie_lens()
-itens_similares = get_calcula_itens_similares()
+#banco_movie_lens = get_carregar_movie_lens()
+#itens_similares = get_calcula_itens_similares()
